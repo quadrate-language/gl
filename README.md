@@ -16,7 +16,7 @@ quadpm get https://github.com/quadrate-language/gl
 ## Usage
 
 ```qd
-use "path/to/gl/init.qd" as gl
+use gl
 
 fn main() {
     // After creating an OpenGL context, load GL functions
