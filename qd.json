@@ -1,0 +1,9 @@
+{
+	"name": "gl",
+	"version": "0.1.0",
+	"description": "OpenGL bindings for Quadrate using glad loader",
+	"license": "Apache-2.0",
+	"native": {
+		"link": ["GL", "dl"]
+	}
+}

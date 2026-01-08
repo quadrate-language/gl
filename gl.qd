@@ -1,0 +1,171 @@
+import "libgl_static.a" as "native" {
+	// Initialization
+	pub fn LoadGL( -- success:i64)
+	pub fn GetVersion( -- major:i64 minor:i64)
+
+	// State Management
+	pub fn Enable(cap:i64 -- )
+	pub fn Disable(cap:i64 -- )
+	pub fn ClearColor(r:f64 g:f64 b:f64 a:f64 -- )
+	pub fn Clear(mask:i64 -- )
+	pub fn Viewport(x:i64 y:i64 width:i64 height:i64 -- )
+
+	// Buffer Objects
+	pub fn GenBuffer( -- buffer:i64)
+	pub fn DeleteBuffer(buffer:i64 -- )
+	pub fn BindBuffer(target:i64 buffer:i64 -- )
+	pub fn BufferDataFloats(target:i64 data:ptr count:i64 usage:i64 -- )
+
+	// Vertex Arrays
+	pub fn GenVertexArray( -- vao:i64)
+	pub fn DeleteVertexArray(vao:i64 -- )
+	pub fn BindVertexArray(vao:i64 -- )
+	pub fn EnableVertexAttribArray(index:i64 -- )
+	pub fn VertexAttribPointer(index:i64 size:i64 type:i64 normalized:i64 stride:i64 offset:i64 -- )
+
+	// Shaders
+	pub fn CreateShader(type:i64 -- shader:i64)
+	pub fn DeleteShader(shader:i64 -- )
+	pub fn ShaderSource(shader:i64 source:str -- )
+	pub fn CompileShader(shader:i64 -- )
+	pub fn GetShaderCompileStatus(shader:i64 -- success:i64)
+	pub fn GetShaderInfoLog(shader:i64 -- log:str)
+
+	// Programs
+	pub fn CreateProgram( -- program:i64)
+	pub fn DeleteProgram(program:i64 -- )
+	pub fn AttachShader(program:i64 shader:i64 -- )
+	pub fn LinkProgram(program:i64 -- )
+	pub fn GetProgramLinkStatus(program:i64 -- success:i64)
+	pub fn GetProgramInfoLog(program:i64 -- log:str)
+	pub fn UseProgram(program:i64 -- )
+	pub fn GetUniformLocation(program:i64 name:str -- location:i64)
+	pub fn Uniform1f(location:i64 v0:f64 -- )
+	pub fn Uniform1i(location:i64 v0:i64 -- )
+	pub fn Uniform3f(location:i64 v0:f64 v1:f64 v2:f64 -- )
+	pub fn Uniform4f(location:i64 v0:f64 v1:f64 v2:f64 v3:f64 -- )
+
+	// Drawing
+	pub fn DrawArrays(mode:i64 first:i64 count:i64 -- )
+	pub fn DrawElements(mode:i64 count:i64 type:i64 offset:i64 -- )
+
+	// Textures
+	pub fn GenTexture( -- texture:i64)
+	pub fn DeleteTexture(texture:i64 -- )
+	pub fn BindTexture(target:i64 texture:i64 -- )
+	pub fn TexParameteri(target:i64 pname:i64 param:i64 -- )
+	pub fn ActiveTexture(texture:i64 -- )
+}
+
+// ============================================================================
+// OpenGL Constants
+// ============================================================================
+// Clear buffer bits
+pub const GL_COLOR_BUFFER_BIT = 0x00004000
+pub const GL_DEPTH_BUFFER_BIT = 0x00000100
+pub const GL_STENCIL_BUFFER_BIT = 0x00000400
+// Primitive types
+pub const GL_POINTS = 0x0000
+pub const GL_LINES = 0x0001
+pub const GL_LINE_LOOP = 0x0002
+pub const GL_LINE_STRIP = 0x0003
+pub const GL_TRIANGLES = 0x0004
+pub const GL_TRIANGLE_STRIP = 0x0005
+pub const GL_TRIANGLE_FAN = 0x0006
+// Data types
+pub const GL_BYTE = 0x1400
+pub const GL_UNSIGNED_BYTE = 0x1401
+pub const GL_SHORT = 0x1402
+pub const GL_UNSIGNED_SHORT = 0x1403
+pub const GL_INT = 0x1404
+pub const GL_UNSIGNED_INT = 0x1405
+pub const GL_FLOAT = 0x1406
+pub const GL_DOUBLE = 0x140A
+// Buffer targets
+pub const GL_ARRAY_BUFFER = 0x8892
+pub const GL_ELEMENT_ARRAY_BUFFER = 0x8893
+// Buffer usage
+pub const GL_STREAM_DRAW = 0x88E0
+pub const GL_STREAM_READ = 0x88E1
+pub const GL_STREAM_COPY = 0x88E2
+pub const GL_STATIC_DRAW = 0x88E4
+pub const GL_STATIC_READ = 0x88E5
+pub const GL_STATIC_COPY = 0x88E6
+pub const GL_DYNAMIC_DRAW = 0x88E8
+pub const GL_DYNAMIC_READ = 0x88E9
+pub const GL_DYNAMIC_COPY = 0x88EA
+// Shader types
+pub const GL_VERTEX_SHADER = 0x8B31
+pub const GL_FRAGMENT_SHADER = 0x8B30
+pub const GL_GEOMETRY_SHADER = 0x8DD9
+// Boolean values
+pub const GL_FALSE = 0
+pub const GL_TRUE = 1
+// Enable/Disable caps
+pub const GL_BLEND = 0x0BE2
+pub const GL_CULL_FACE = 0x0B44
+pub const GL_DEPTH_TEST = 0x0B71
+pub const GL_SCISSOR_TEST = 0x0C11
+pub const GL_STENCIL_TEST = 0x0B90
+pub const GL_MULTISAMPLE = 0x809D
+// Blend functions
+pub const GL_ZERO = 0
+pub const GL_ONE = 1
+pub const GL_SRC_COLOR = 0x0300
+pub const GL_ONE_MINUS_SRC_COLOR = 0x0301
+pub const GL_SRC_ALPHA = 0x0302
+pub const GL_ONE_MINUS_SRC_ALPHA = 0x0303
+pub const GL_DST_ALPHA = 0x0304
+pub const GL_ONE_MINUS_DST_ALPHA = 0x0305
+pub const GL_DST_COLOR = 0x0306
+pub const GL_ONE_MINUS_DST_COLOR = 0x0307
+// Texture targets
+pub const GL_TEXTURE_1D = 0x0DE0
+pub const GL_TEXTURE_2D = 0x0DE1
+pub const GL_TEXTURE_3D = 0x806F
+pub const GL_TEXTURE_CUBE_MAP = 0x8513
+// Texture parameters
+pub const GL_TEXTURE_MIN_FILTER = 0x2801
+pub const GL_TEXTURE_MAG_FILTER = 0x2800
+pub const GL_TEXTURE_WRAP_S = 0x2802
+pub const GL_TEXTURE_WRAP_T = 0x2803
+pub const GL_TEXTURE_WRAP_R = 0x8072
+// Texture filter values
+pub const GL_NEAREST = 0x2600
+pub const GL_LINEAR = 0x2601
+pub const GL_NEAREST_MIPMAP_NEAREST = 0x2700
+pub const GL_LINEAR_MIPMAP_NEAREST = 0x2701
+pub const GL_NEAREST_MIPMAP_LINEAR = 0x2702
+pub const GL_LINEAR_MIPMAP_LINEAR = 0x2703
+// Texture wrap values
+pub const GL_REPEAT = 0x2901
+pub const GL_CLAMP_TO_EDGE = 0x812F
+pub const GL_MIRRORED_REPEAT = 0x8370
+// Texture units
+pub const GL_TEXTURE0 = 0x84C0
+pub const GL_TEXTURE1 = 0x84C1
+pub const GL_TEXTURE2 = 0x84C2
+pub const GL_TEXTURE3 = 0x84C3
+pub const GL_TEXTURE4 = 0x84C4
+pub const GL_TEXTURE5 = 0x84C5
+pub const GL_TEXTURE6 = 0x84C6
+pub const GL_TEXTURE7 = 0x84C7
+// Internal formats / Pixel formats
+pub const GL_RED = 0x1903
+pub const GL_RG = 0x8227
+pub const GL_RGB = 0x1907
+pub const GL_RGBA = 0x1908
+pub const GL_DEPTH_COMPONENT = 0x1902
+// Cull face modes
+pub const GL_FRONT = 0x0404
+pub const GL_BACK = 0x0405
+pub const GL_FRONT_AND_BACK = 0x0408
+// Depth functions
+pub const GL_NEVER = 0x0200
+pub const GL_LESS = 0x0201
+pub const GL_EQUAL = 0x0202
+pub const GL_LEQUAL = 0x0203
+pub const GL_GREATER = 0x0204
+pub const GL_NOTEQUAL = 0x0205
+pub const GL_GEQUAL = 0x0206
+pub const GL_ALWAYS = 0x0207
