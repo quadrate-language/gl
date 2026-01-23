@@ -12,17 +12,17 @@
 
 // LoadGL( -- success:i64 )
 // Must be called after creating an OpenGL context
-qd_exec_result LoadGL(qd_context* ctx) {
+int LoadGL(qd_context* ctx) {
 	int success = gladLoadGL();
 	qd_push_i(ctx, success ? 1 : 0);
-	return (qd_exec_result){0};
+	return 0;
 }
 
 // GetVersion( -- major:i64 minor:i64 )
-qd_exec_result GetVersion(qd_context* ctx) {
+int GetVersion(qd_context* ctx) {
 	qd_push_i(ctx, GLVersion.major);
 	qd_push_i(ctx, GLVersion.minor);
-	return (qd_exec_result){0};
+	return 0;
 }
 
 // ============================================================================
@@ -30,7 +30,7 @@ qd_exec_result GetVersion(qd_context* ctx) {
 // ============================================================================
 
 // Enable( cap:i64 -- )
-qd_exec_result Enable(qd_context* ctx) {
+int Enable(qd_context* ctx) {
 	size_t stack_size = qd_stack_size(ctx->st);
 	if (stack_size < 1) {
 		fprintf(stderr, "Fatal error in Enable: Stack underflow\n");
@@ -43,11 +43,11 @@ qd_exec_result Enable(qd_context* ctx) {
 		abort();
 	}
 	glEnable((GLenum)cap_elem.value.i);
-	return (qd_exec_result){0};
+	return 0;
 }
 
 // Disable( cap:i64 -- )
-qd_exec_result Disable(qd_context* ctx) {
+int Disable(qd_context* ctx) {
 	size_t stack_size = qd_stack_size(ctx->st);
 	if (stack_size < 1) {
 		fprintf(stderr, "Fatal error in Disable: Stack underflow\n");
@@ -60,11 +60,11 @@ qd_exec_result Disable(qd_context* ctx) {
 		abort();
 	}
 	glDisable((GLenum)cap_elem.value.i);
-	return (qd_exec_result){0};
+	return 0;
 }
 
 // ClearColor( r:f64 g:f64 b:f64 a:f64 -- )
-qd_exec_result ClearColor(qd_context* ctx) {
+int ClearColor(qd_context* ctx) {
 	size_t stack_size = qd_stack_size(ctx->st);
 	if (stack_size < 4) {
 		fprintf(stderr, "Fatal error in ClearColor: Stack underflow\n");
@@ -82,11 +82,11 @@ qd_exec_result ClearColor(qd_context* ctx) {
 	}
 	glClearColor((GLfloat)r_elem.value.f, (GLfloat)g_elem.value.f, (GLfloat)b_elem.value.f,
 			(GLfloat)a_elem.value.f);
-	return (qd_exec_result){0};
+	return 0;
 }
 
 // Clear( mask:i64 -- )
-qd_exec_result Clear(qd_context* ctx) {
+int Clear(qd_context* ctx) {
 	size_t stack_size = qd_stack_size(ctx->st);
 	if (stack_size < 1) {
 		fprintf(stderr, "Fatal error in Clear: Stack underflow\n");
@@ -99,11 +99,11 @@ qd_exec_result Clear(qd_context* ctx) {
 		abort();
 	}
 	glClear((GLbitfield)mask_elem.value.i);
-	return (qd_exec_result){0};
+	return 0;
 }
 
 // Viewport( x:i64 y:i64 width:i64 height:i64 -- )
-qd_exec_result Viewport(qd_context* ctx) {
+int Viewport(qd_context* ctx) {
 	size_t stack_size = qd_stack_size(ctx->st);
 	if (stack_size < 4) {
 		fprintf(stderr, "Fatal error in Viewport: Stack underflow\n");
@@ -121,7 +121,7 @@ qd_exec_result Viewport(qd_context* ctx) {
 	}
 	glViewport((GLint)x_elem.value.i, (GLint)y_elem.value.i, (GLsizei)width_elem.value.i,
 			(GLsizei)height_elem.value.i);
-	return (qd_exec_result){0};
+	return 0;
 }
 
 // ============================================================================
@@ -129,15 +129,15 @@ qd_exec_result Viewport(qd_context* ctx) {
 // ============================================================================
 
 // GenBuffer( -- buffer:i64 )
-qd_exec_result GenBuffer(qd_context* ctx) {
+int GenBuffer(qd_context* ctx) {
 	GLuint buffer;
 	glGenBuffers(1, &buffer);
 	qd_push_i(ctx, (int64_t)buffer);
-	return (qd_exec_result){0};
+	return 0;
 }
 
 // DeleteBuffer( buffer:i64 -- )
-qd_exec_result DeleteBuffer(qd_context* ctx) {
+int DeleteBuffer(qd_context* ctx) {
 	size_t stack_size = qd_stack_size(ctx->st);
 	if (stack_size < 1) {
 		fprintf(stderr, "Fatal error in DeleteBuffer: Stack underflow\n");
@@ -151,11 +151,11 @@ qd_exec_result DeleteBuffer(qd_context* ctx) {
 	}
 	GLuint buffer = (GLuint)buffer_elem.value.i;
 	glDeleteBuffers(1, &buffer);
-	return (qd_exec_result){0};
+	return 0;
 }
 
 // BindBuffer( target:i64 buffer:i64 -- )
-qd_exec_result BindBuffer(qd_context* ctx) {
+int BindBuffer(qd_context* ctx) {
 	size_t stack_size = qd_stack_size(ctx->st);
 	if (stack_size < 2) {
 		fprintf(stderr, "Fatal error in BindBuffer: Stack underflow\n");
@@ -169,11 +169,11 @@ qd_exec_result BindBuffer(qd_context* ctx) {
 		abort();
 	}
 	glBindBuffer((GLenum)target_elem.value.i, (GLuint)buffer_elem.value.i);
-	return (qd_exec_result){0};
+	return 0;
 }
 
 // BufferDataFloats( target:i64 data:ptr count:i64 usage:i64 -- )
-qd_exec_result BufferDataFloats(qd_context* ctx) {
+int BufferDataFloats(qd_context* ctx) {
 	size_t stack_size = qd_stack_size(ctx->st);
 	if (stack_size < 4) {
 		fprintf(stderr, "Fatal error in BufferDataFloats: Stack underflow\n");
@@ -191,7 +191,7 @@ qd_exec_result BufferDataFloats(qd_context* ctx) {
 	}
 	glBufferData((GLenum)target_elem.value.i, (GLsizeiptr)(count_elem.value.i * sizeof(float)),
 			data_elem.value.p, (GLenum)usage_elem.value.i);
-	return (qd_exec_result){0};
+	return 0;
 }
 
 // ============================================================================
@@ -199,15 +199,15 @@ qd_exec_result BufferDataFloats(qd_context* ctx) {
 // ============================================================================
 
 // GenVertexArray( -- vao:i64 )
-qd_exec_result GenVertexArray(qd_context* ctx) {
+int GenVertexArray(qd_context* ctx) {
 	GLuint vao;
 	glGenVertexArrays(1, &vao);
 	qd_push_i(ctx, (int64_t)vao);
-	return (qd_exec_result){0};
+	return 0;
 }
 
 // DeleteVertexArray( vao:i64 -- )
-qd_exec_result DeleteVertexArray(qd_context* ctx) {
+int DeleteVertexArray(qd_context* ctx) {
 	size_t stack_size = qd_stack_size(ctx->st);
 	if (stack_size < 1) {
 		fprintf(stderr, "Fatal error in DeleteVertexArray: Stack underflow\n");
@@ -221,11 +221,11 @@ qd_exec_result DeleteVertexArray(qd_context* ctx) {
 	}
 	GLuint vao = (GLuint)vao_elem.value.i;
 	glDeleteVertexArrays(1, &vao);
-	return (qd_exec_result){0};
+	return 0;
 }
 
 // BindVertexArray( vao:i64 -- )
-qd_exec_result BindVertexArray(qd_context* ctx) {
+int BindVertexArray(qd_context* ctx) {
 	size_t stack_size = qd_stack_size(ctx->st);
 	if (stack_size < 1) {
 		fprintf(stderr, "Fatal error in BindVertexArray: Stack underflow\n");
@@ -238,11 +238,11 @@ qd_exec_result BindVertexArray(qd_context* ctx) {
 		abort();
 	}
 	glBindVertexArray((GLuint)vao_elem.value.i);
-	return (qd_exec_result){0};
+	return 0;
 }
 
 // EnableVertexAttribArray( index:i64 -- )
-qd_exec_result EnableVertexAttribArray(qd_context* ctx) {
+int EnableVertexAttribArray(qd_context* ctx) {
 	size_t stack_size = qd_stack_size(ctx->st);
 	if (stack_size < 1) {
 		fprintf(stderr, "Fatal error in EnableVertexAttribArray: Stack underflow\n");
@@ -255,11 +255,11 @@ qd_exec_result EnableVertexAttribArray(qd_context* ctx) {
 		abort();
 	}
 	glEnableVertexAttribArray((GLuint)index_elem.value.i);
-	return (qd_exec_result){0};
+	return 0;
 }
 
 // VertexAttribPointer( index:i64 size:i64 type:i64 normalized:i64 stride:i64 offset:i64 -- )
-qd_exec_result VertexAttribPointer(qd_context* ctx) {
+int VertexAttribPointer(qd_context* ctx) {
 	size_t stack_size = qd_stack_size(ctx->st);
 	if (stack_size < 6) {
 		fprintf(stderr, "Fatal error in VertexAttribPointer: Stack underflow\n");
@@ -281,7 +281,7 @@ qd_exec_result VertexAttribPointer(qd_context* ctx) {
 	glVertexAttribPointer((GLuint)index_elem.value.i, (GLint)size_elem.value.i,
 			(GLenum)type_elem.value.i, (GLboolean)normalized_elem.value.i, (GLsizei)stride_elem.value.i,
 			(const void*)(intptr_t)offset_elem.value.i);
-	return (qd_exec_result){0};
+	return 0;
 }
 
 // ============================================================================
@@ -289,7 +289,7 @@ qd_exec_result VertexAttribPointer(qd_context* ctx) {
 // ============================================================================
 
 // CreateShader( type:i64 -- shader:i64 )
-qd_exec_result CreateShader(qd_context* ctx) {
+int CreateShader(qd_context* ctx) {
 	size_t stack_size = qd_stack_size(ctx->st);
 	if (stack_size < 1) {
 		fprintf(stderr, "Fatal error in CreateShader: Stack underflow\n");
@@ -303,11 +303,11 @@ qd_exec_result CreateShader(qd_context* ctx) {
 	}
 	GLuint shader = glCreateShader((GLenum)type_elem.value.i);
 	qd_push_i(ctx, (int64_t)shader);
-	return (qd_exec_result){0};
+	return 0;
 }
 
 // DeleteShader( shader:i64 -- )
-qd_exec_result DeleteShader(qd_context* ctx) {
+int DeleteShader(qd_context* ctx) {
 	size_t stack_size = qd_stack_size(ctx->st);
 	if (stack_size < 1) {
 		fprintf(stderr, "Fatal error in DeleteShader: Stack underflow\n");
@@ -320,11 +320,11 @@ qd_exec_result DeleteShader(qd_context* ctx) {
 		abort();
 	}
 	glDeleteShader((GLuint)shader_elem.value.i);
-	return (qd_exec_result){0};
+	return 0;
 }
 
 // ShaderSource( shader:i64 source:str -- )
-qd_exec_result ShaderSource(qd_context* ctx) {
+int ShaderSource(qd_context* ctx) {
 	size_t stack_size = qd_stack_size(ctx->st);
 	if (stack_size < 2) {
 		fprintf(stderr, "Fatal error in ShaderSource: Stack underflow\n");
@@ -340,11 +340,11 @@ qd_exec_result ShaderSource(qd_context* ctx) {
 	const char* source = qd_string_data(source_elem.value.s);
 	glShaderSource((GLuint)shader_elem.value.i, 1, &source, NULL);
 	qd_string_release(source_elem.value.s);
-	return (qd_exec_result){0};
+	return 0;
 }
 
 // CompileShader( shader:i64 -- )
-qd_exec_result CompileShader(qd_context* ctx) {
+int CompileShader(qd_context* ctx) {
 	size_t stack_size = qd_stack_size(ctx->st);
 	if (stack_size < 1) {
 		fprintf(stderr, "Fatal error in CompileShader: Stack underflow\n");
@@ -357,11 +357,11 @@ qd_exec_result CompileShader(qd_context* ctx) {
 		abort();
 	}
 	glCompileShader((GLuint)shader_elem.value.i);
-	return (qd_exec_result){0};
+	return 0;
 }
 
 // GetShaderCompileStatus( shader:i64 -- success:i64 )
-qd_exec_result GetShaderCompileStatus(qd_context* ctx) {
+int GetShaderCompileStatus(qd_context* ctx) {
 	size_t stack_size = qd_stack_size(ctx->st);
 	if (stack_size < 1) {
 		fprintf(stderr, "Fatal error in GetShaderCompileStatus: Stack underflow\n");
@@ -376,11 +376,11 @@ qd_exec_result GetShaderCompileStatus(qd_context* ctx) {
 	GLint success;
 	glGetShaderiv((GLuint)shader_elem.value.i, GL_COMPILE_STATUS, &success);
 	qd_push_i(ctx, (int64_t)success);
-	return (qd_exec_result){0};
+	return 0;
 }
 
 // GetShaderInfoLog( shader:i64 -- log:str )
-qd_exec_result GetShaderInfoLog(qd_context* ctx) {
+int GetShaderInfoLog(qd_context* ctx) {
 	size_t stack_size = qd_stack_size(ctx->st);
 	if (stack_size < 1) {
 		fprintf(stderr, "Fatal error in GetShaderInfoLog: Stack underflow\n");
@@ -399,7 +399,7 @@ qd_exec_result GetShaderInfoLog(qd_context* ctx) {
 	log[length] = '\0';
 	qd_push_s(ctx, log);
 	free(log);
-	return (qd_exec_result){0};
+	return 0;
 }
 
 // ============================================================================
@@ -407,14 +407,14 @@ qd_exec_result GetShaderInfoLog(qd_context* ctx) {
 // ============================================================================
 
 // CreateProgram( -- program:i64 )
-qd_exec_result CreateProgram(qd_context* ctx) {
+int CreateProgram(qd_context* ctx) {
 	GLuint program = glCreateProgram();
 	qd_push_i(ctx, (int64_t)program);
-	return (qd_exec_result){0};
+	return 0;
 }
 
 // DeleteProgram( program:i64 -- )
-qd_exec_result DeleteProgram(qd_context* ctx) {
+int DeleteProgram(qd_context* ctx) {
 	size_t stack_size = qd_stack_size(ctx->st);
 	if (stack_size < 1) {
 		fprintf(stderr, "Fatal error in DeleteProgram: Stack underflow\n");
@@ -427,11 +427,11 @@ qd_exec_result DeleteProgram(qd_context* ctx) {
 		abort();
 	}
 	glDeleteProgram((GLuint)program_elem.value.i);
-	return (qd_exec_result){0};
+	return 0;
 }
 
 // AttachShader( program:i64 shader:i64 -- )
-qd_exec_result AttachShader(qd_context* ctx) {
+int AttachShader(qd_context* ctx) {
 	size_t stack_size = qd_stack_size(ctx->st);
 	if (stack_size < 2) {
 		fprintf(stderr, "Fatal error in AttachShader: Stack underflow\n");
@@ -445,11 +445,11 @@ qd_exec_result AttachShader(qd_context* ctx) {
 		abort();
 	}
 	glAttachShader((GLuint)program_elem.value.i, (GLuint)shader_elem.value.i);
-	return (qd_exec_result){0};
+	return 0;
 }
 
 // LinkProgram( program:i64 -- )
-qd_exec_result LinkProgram(qd_context* ctx) {
+int LinkProgram(qd_context* ctx) {
 	size_t stack_size = qd_stack_size(ctx->st);
 	if (stack_size < 1) {
 		fprintf(stderr, "Fatal error in LinkProgram: Stack underflow\n");
@@ -462,11 +462,11 @@ qd_exec_result LinkProgram(qd_context* ctx) {
 		abort();
 	}
 	glLinkProgram((GLuint)program_elem.value.i);
-	return (qd_exec_result){0};
+	return 0;
 }
 
 // GetProgramLinkStatus( program:i64 -- success:i64 )
-qd_exec_result GetProgramLinkStatus(qd_context* ctx) {
+int GetProgramLinkStatus(qd_context* ctx) {
 	size_t stack_size = qd_stack_size(ctx->st);
 	if (stack_size < 1) {
 		fprintf(stderr, "Fatal error in GetProgramLinkStatus: Stack underflow\n");
@@ -481,11 +481,11 @@ qd_exec_result GetProgramLinkStatus(qd_context* ctx) {
 	GLint success;
 	glGetProgramiv((GLuint)program_elem.value.i, GL_LINK_STATUS, &success);
 	qd_push_i(ctx, (int64_t)success);
-	return (qd_exec_result){0};
+	return 0;
 }
 
 // GetProgramInfoLog( program:i64 -- log:str )
-qd_exec_result GetProgramInfoLog(qd_context* ctx) {
+int GetProgramInfoLog(qd_context* ctx) {
 	size_t stack_size = qd_stack_size(ctx->st);
 	if (stack_size < 1) {
 		fprintf(stderr, "Fatal error in GetProgramInfoLog: Stack underflow\n");
@@ -504,11 +504,11 @@ qd_exec_result GetProgramInfoLog(qd_context* ctx) {
 	log[length] = '\0';
 	qd_push_s(ctx, log);
 	free(log);
-	return (qd_exec_result){0};
+	return 0;
 }
 
 // UseProgram( program:i64 -- )
-qd_exec_result UseProgram(qd_context* ctx) {
+int UseProgram(qd_context* ctx) {
 	size_t stack_size = qd_stack_size(ctx->st);
 	if (stack_size < 1) {
 		fprintf(stderr, "Fatal error in UseProgram: Stack underflow\n");
@@ -521,11 +521,11 @@ qd_exec_result UseProgram(qd_context* ctx) {
 		abort();
 	}
 	glUseProgram((GLuint)program_elem.value.i);
-	return (qd_exec_result){0};
+	return 0;
 }
 
 // GetUniformLocation( program:i64 name:str -- location:i64 )
-qd_exec_result GetUniformLocation(qd_context* ctx) {
+int GetUniformLocation(qd_context* ctx) {
 	size_t stack_size = qd_stack_size(ctx->st);
 	if (stack_size < 2) {
 		fprintf(stderr, "Fatal error in GetUniformLocation: Stack underflow\n");
@@ -542,11 +542,11 @@ qd_exec_result GetUniformLocation(qd_context* ctx) {
 	GLint location = glGetUniformLocation((GLuint)program_elem.value.i, name);
 	qd_string_release(name_elem.value.s);
 	qd_push_i(ctx, (int64_t)location);
-	return (qd_exec_result){0};
+	return 0;
 }
 
 // Uniform1f( location:i64 v0:f64 -- )
-qd_exec_result Uniform1f(qd_context* ctx) {
+int Uniform1f(qd_context* ctx) {
 	size_t stack_size = qd_stack_size(ctx->st);
 	if (stack_size < 2) {
 		fprintf(stderr, "Fatal error in Uniform1f: Stack underflow\n");
@@ -560,11 +560,11 @@ qd_exec_result Uniform1f(qd_context* ctx) {
 		abort();
 	}
 	glUniform1f((GLint)location_elem.value.i, (GLfloat)v0_elem.value.f);
-	return (qd_exec_result){0};
+	return 0;
 }
 
 // Uniform1i( location:i64 v0:i64 -- )
-qd_exec_result Uniform1i(qd_context* ctx) {
+int Uniform1i(qd_context* ctx) {
 	size_t stack_size = qd_stack_size(ctx->st);
 	if (stack_size < 2) {
 		fprintf(stderr, "Fatal error in Uniform1i: Stack underflow\n");
@@ -578,11 +578,11 @@ qd_exec_result Uniform1i(qd_context* ctx) {
 		abort();
 	}
 	glUniform1i((GLint)location_elem.value.i, (GLint)v0_elem.value.i);
-	return (qd_exec_result){0};
+	return 0;
 }
 
 // Uniform3f( location:i64 v0:f64 v1:f64 v2:f64 -- )
-qd_exec_result Uniform3f(qd_context* ctx) {
+int Uniform3f(qd_context* ctx) {
 	size_t stack_size = qd_stack_size(ctx->st);
 	if (stack_size < 4) {
 		fprintf(stderr, "Fatal error in Uniform3f: Stack underflow\n");
@@ -600,11 +600,11 @@ qd_exec_result Uniform3f(qd_context* ctx) {
 	}
 	glUniform3f((GLint)location_elem.value.i, (GLfloat)v0_elem.value.f, (GLfloat)v1_elem.value.f,
 			(GLfloat)v2_elem.value.f);
-	return (qd_exec_result){0};
+	return 0;
 }
 
 // Uniform4f( location:i64 v0:f64 v1:f64 v2:f64 v3:f64 -- )
-qd_exec_result Uniform4f(qd_context* ctx) {
+int Uniform4f(qd_context* ctx) {
 	size_t stack_size = qd_stack_size(ctx->st);
 	if (stack_size < 5) {
 		fprintf(stderr, "Fatal error in Uniform4f: Stack underflow\n");
@@ -624,7 +624,7 @@ qd_exec_result Uniform4f(qd_context* ctx) {
 	}
 	glUniform4f((GLint)location_elem.value.i, (GLfloat)v0_elem.value.f, (GLfloat)v1_elem.value.f,
 			(GLfloat)v2_elem.value.f, (GLfloat)v3_elem.value.f);
-	return (qd_exec_result){0};
+	return 0;
 }
 
 // ============================================================================
@@ -632,7 +632,7 @@ qd_exec_result Uniform4f(qd_context* ctx) {
 // ============================================================================
 
 // DrawArrays( mode:i64 first:i64 count:i64 -- )
-qd_exec_result DrawArrays(qd_context* ctx) {
+int DrawArrays(qd_context* ctx) {
 	size_t stack_size = qd_stack_size(ctx->st);
 	if (stack_size < 3) {
 		fprintf(stderr, "Fatal error in DrawArrays: Stack underflow\n");
@@ -648,11 +648,11 @@ qd_exec_result DrawArrays(qd_context* ctx) {
 		abort();
 	}
 	glDrawArrays((GLenum)mode_elem.value.i, (GLint)first_elem.value.i, (GLsizei)count_elem.value.i);
-	return (qd_exec_result){0};
+	return 0;
 }
 
 // DrawElements( mode:i64 count:i64 type:i64 offset:i64 -- )
-qd_exec_result DrawElements(qd_context* ctx) {
+int DrawElements(qd_context* ctx) {
 	size_t stack_size = qd_stack_size(ctx->st);
 	if (stack_size < 4) {
 		fprintf(stderr, "Fatal error in DrawElements: Stack underflow\n");
@@ -670,7 +670,7 @@ qd_exec_result DrawElements(qd_context* ctx) {
 	}
 	glDrawElements((GLenum)mode_elem.value.i, (GLsizei)count_elem.value.i, (GLenum)type_elem.value.i,
 			(const void*)(intptr_t)offset_elem.value.i);
-	return (qd_exec_result){0};
+	return 0;
 }
 
 // ============================================================================
@@ -678,15 +678,15 @@ qd_exec_result DrawElements(qd_context* ctx) {
 // ============================================================================
 
 // GenTexture( -- texture:i64 )
-qd_exec_result GenTexture(qd_context* ctx) {
+int GenTexture(qd_context* ctx) {
 	GLuint texture;
 	glGenTextures(1, &texture);
 	qd_push_i(ctx, (int64_t)texture);
-	return (qd_exec_result){0};
+	return 0;
 }
 
 // DeleteTexture( texture:i64 -- )
-qd_exec_result DeleteTexture(qd_context* ctx) {
+int DeleteTexture(qd_context* ctx) {
 	size_t stack_size = qd_stack_size(ctx->st);
 	if (stack_size < 1) {
 		fprintf(stderr, "Fatal error in DeleteTexture: Stack underflow\n");
@@ -700,11 +700,11 @@ qd_exec_result DeleteTexture(qd_context* ctx) {
 	}
 	GLuint texture = (GLuint)texture_elem.value.i;
 	glDeleteTextures(1, &texture);
-	return (qd_exec_result){0};
+	return 0;
 }
 
 // BindTexture( target:i64 texture:i64 -- )
-qd_exec_result BindTexture(qd_context* ctx) {
+int BindTexture(qd_context* ctx) {
 	size_t stack_size = qd_stack_size(ctx->st);
 	if (stack_size < 2) {
 		fprintf(stderr, "Fatal error in BindTexture: Stack underflow\n");
@@ -718,11 +718,11 @@ qd_exec_result BindTexture(qd_context* ctx) {
 		abort();
 	}
 	glBindTexture((GLenum)target_elem.value.i, (GLuint)texture_elem.value.i);
-	return (qd_exec_result){0};
+	return 0;
 }
 
 // TexParameteri( target:i64 pname:i64 param:i64 -- )
-qd_exec_result TexParameteri(qd_context* ctx) {
+int TexParameteri(qd_context* ctx) {
 	size_t stack_size = qd_stack_size(ctx->st);
 	if (stack_size < 3) {
 		fprintf(stderr, "Fatal error in TexParameteri: Stack underflow\n");
@@ -738,11 +738,11 @@ qd_exec_result TexParameteri(qd_context* ctx) {
 		abort();
 	}
 	glTexParameteri((GLenum)target_elem.value.i, (GLenum)pname_elem.value.i, (GLint)param_elem.value.i);
-	return (qd_exec_result){0};
+	return 0;
 }
 
 // ActiveTexture( texture:i64 -- )
-qd_exec_result ActiveTexture(qd_context* ctx) {
+int ActiveTexture(qd_context* ctx) {
 	size_t stack_size = qd_stack_size(ctx->st);
 	if (stack_size < 1) {
 		fprintf(stderr, "Fatal error in ActiveTexture: Stack underflow\n");
@@ -755,5 +755,5 @@ qd_exec_result ActiveTexture(qd_context* ctx) {
 		abort();
 	}
 	glActiveTexture((GLenum)texture_elem.value.i);
-	return (qd_exec_result){0};
+	return 0;
 }
