@@ -5,7 +5,7 @@ OpenGL bindings for Quadrate using the glad loader.
 ## Installation
 
 ```bash
-quadpm get https://github.com/quadrate-language/gl
+quadpm get https://git.sr.ht/~klahr/qdgl
 ```
 
 ## Requirements
@@ -37,3 +37,7 @@ See the SDL3 bindings repository for a complete OpenGL example using SDL3 for wi
 ## License
 
 Apache-2.0
+
+## Contributing
+
+Contributions welcome! Please open an issue or submit a patch on [SourceHut](https://git.sr.ht/~klahr/qdgl).
