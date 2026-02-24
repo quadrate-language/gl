@@ -1,7 +1,7 @@
 #include <glad/glad.h>
-#include <qdrt/ffi.h>
-#include <qdrt/runtime.h>
-#include <qdrt/stack.h>
+#include <quadrate/rt/ffi.h>
+#include <quadrate/rt/runtime.h>
+#include <quadrate/rt/stack.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
