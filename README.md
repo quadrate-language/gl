@@ -5,7 +5,7 @@ OpenGL bindings for Quadrate using the glad loader.
 ## Installation
 
 ```bash
-quadpm get https://git.sr.ht/~klahr/qdgl
+quadpm get https://github.com/quadrate-language/gl
 ```
 
 ## Requirements
@@ -40,4 +40,4 @@ Apache-2.0
 
 ## Contributing
 
-Contributions welcome! Please open an issue or submit a patch on [SourceHut](https://git.sr.ht/~klahr/qdgl).
+Contributions welcome! Please open an issue or pull request on [GitHub](https://github.com/quadrate-language/gl).
